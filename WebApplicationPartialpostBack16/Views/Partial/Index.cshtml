@@ -1,0 +1,65 @@
+﻿@model DynamicRows.Models.EmployeeModel
+@{
+    ViewBag.Title = "Dynamically adding rows to table";
+}
+<script type="text/javascript">
+    function ValidateData() {
+        if ($(".validateID").attr('value') == "0" || $(".validateID").attr('value') == "") {
+            alert("Enter valide ID ");
+            return false;
+        }
+        else if ($(".validateName").attr('value') == "") {
+            alert(" Enter name of employee.");
+            return false;
+        }
+        else if ($(".validateContact").attr('value') == "") {
+            alert("Enter Contact number of Employee.");
+            return false;
+        }
+        else if ($(".validateAddress").attr('value') == "") {
+            alert("Enter address of employee.");
+            return false;
+        }
+        return true;
+    }
+</script>
+@using (Html.BeginForm("Index", "Home"))
+{
+    <html>
+    <head>
+        <style>
+            * {
+                padding: 0px;
+                margin: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="text-align:center;">
+            <table cellpadding="3" cellspacing="0" border="1" style="border-color:Black;border-collapse:collapse; text-align:center; width:20%;">
+                <tr style="font-weight: bold; background-color: #c19191; height: 20px;">
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Contact</td>
+                    <td>Address</td>
+                </tr>
+                @for (int a = 0; a < Model.InfoModel.Count; a++)
+                {
+                    <tr>
+                        <td style="width:20%;">@Html.TextBoxFor(m => m.InfoModel[a].ID, new { @class = "validateID" })</td>
+                        <td style="width:20%;">@Html.TextBoxFor(m => m.InfoModel[a].Name, new { @class = "validateName" })</td>
+                        <td style="width:20%;">@Html.TextBoxFor(m => m.InfoModel[a].Contact, new { @class = "validateContact" })</td>
+                        <td style="width:20%;">@Html.TextBoxFor(m => m.InfoModel[a].Address, new { @class = "validateAddress" })</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Add New Data" title="Add New Data" onclick="javascript:return ValidateData();" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+    </html>
+}
+</html> 
